@@ -1,0 +1,55 @@
+\documentclass[a4paper,10pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\begin{document}
+
+\section{Correlación parcial}
+Sean $b_1$ y $b_2$ dos bines y $g_1$ y $g_2$ sus respectivos genes.\newline
+La Correlación parcial (\cite{chen09}\cite{zuo14}) $r_{b_1b_2,g_1}$ entre $b_1$ y $b_2$ controlando por $g_1$ se define como:
+\begin{equation} \label{eq:correlacion_parcial_orden_1_a}
+r_{b_1b_2,g_1}=\frac{r_{b_1b_2}-r_{b_1g_1}r_{b_2g_1}}{\sqrt{(1-r_{b_1g_1}^2)(1-r_{b_2g_1}^2)}}
+\end{equation}
+Idem controlando por $g_2$:
+\begin{equation} \label{eq:correlacion_parcial_orden_1_b}
+r_{b_1b_2,g_2}=\frac{r_{b_1b_2}-r_{b_1g_2}r_{b_2g_2}}{\sqrt{(1-r_{b_1g_2}^2)(1-r_{b_2g_2}^2)}}
+\end{equation}
+La Correlación parcial $r_{b_1b_2,g_1g2}$ entre $b_1$ y $b_2$ controlando por $g_1$ y $g_2$ se define como:
+\begin{equation} \label{eq:correlacion_parcial_orden_2}
+r_{b_1b_2,g_1g2}=\frac{r_{b_1b_2,g1}-r_{b_1g_2,g_1}r_{b_2g_2,g_1}}{\sqrt{(1-r_{b_1g_2,g_1}^2)(1-r_{b_2g_2,g_1}^2)}}
+\end{equation}
+La Correlación parcial es simétrica, es decir que $r_{b_1b_2,g_1g2}=r_{b_1b_2,g_2g1}$.\newline
+La idea de correlación parcial a segundo orden es fitear $b_1$ y $b_2$ como funciones lineales de $g_1$ y $g_2$ y ver como correlacionan sus residuos:
+\begin{equation} \label{eq:ajuste_lineal_correlacion_parcial_a}
+b_1 \approx \beta_1 g_1 + \beta_2 g_2 + \epsilon
+\end{equation}
+\begin{equation} \label{eq:ajuste_lineal_correlacion_parcial_b}
+b_2 \approx \beta_1^\prime g_2 + \beta_2^\prime g_2 + \epsilon^\prime
+\end{equation}
+Y después calcular la correlación entre los residuos $\epsilon$ y $\epsilon^\prime$. Es la definición posta de correlación parcial.\newline
+Sin embargo, ASpli hace cosas diferentes. En primer lugar, deconvoluciona la señal del gen de la señal del bin. Con eso, podemos comparar dos bines a lo largo del tiempo y ver si se usan de forma 
+diferencial a lo largo del tiempo (si se incluyen coordinamente, excluyen, etc). Para deconvolucionar ASpli hace:
+\begin{equation} \label{eq:normalizacion_aspli}
+b_{ijk}^A = \frac{b_{ijk}}{\frac{g_{jk}}{\overline{g_{k}}}}
+\end{equation}
+Y para analizar uso diferencial compara una condición, usualmente la primera, contra el resto, y pide que cumpla cierta condición:
+\begin{equation} \label{eq:uso_diferencial_aspli}
+log(b_{ijk}^A)-log(b_{ij1}^A) > condicion
+\end{equation}
+\begin{thebibliography}{99}
+
+\bibitem{chen09}
+  Liang Cheng and Sika Zheng,
+  Studying alternative splicing regulatory networks through partial correlation analysis,
+  Open Access Genome Biology, 2009.
+
+\bibitem{zuo14}
+  Yiming Zuo et al.,
+  Biological network ingerence using low order prtial correlation,
+  Methods, 2009.
+
+  
+\end{thebibliography}
+
+
+\end{document}
